@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Angular To-Do List</title>
+	</head>
+	<body ng-app="ToDo" ng-controller="ToDo as t">
+		<div>
+			Title: <input ng-model="t.newItem.title">
+			Description: <input ng-model="t.newItem.description">
+			<button ng-click="t.addItem()">Add Item</button>
+
+			<table>
+				<thead>
+					<tr>
+						<th>EDIT</th>
+						<th>DELETE</th>
+						<th>ID</th>
+						<th>TITLE</th>
+						<th>DESCRIPTION</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in t.items">
+						<td>
+							<button ng-click="t.startEdit(item)" ng-show="t.editMode !== item.id">EDIT</button>
+							<button ng-click="t.update(item)" ng-show="t.editMode === item.id">SAVE</button>
+						</td>
+						<td>
+							<button ng-click="t.remove(item.id)">DELETE</button>
+						</td>
+						<td>
+							<span>{{item.id}}</span>
+						</td>
+						<td>
+							<span ng-show="t.editMode !== item.id">{{item.title}}</span>
+							<input ng-show="t.editMode === item.id" ng-model="t.currentItem.title">
+						</td>
+						<td>
+							<span ng-show="t.editMode !== item.id">{{item.description}}</span>
+							<input ng-show="t.editMode === item.id" ng-model="t.currentItem.description">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<script src="bower_components/angular/angular.min.js"></script>
+
+		<script src="src/app.js"></script>
+		<script src="src/controllers.js"></script>
+		<script src="src/services.js"></script>
+	</body>
+</html>
